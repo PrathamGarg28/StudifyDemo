@@ -417,7 +417,26 @@ function Navbar() {
                 </span>
               )}
             </Link>
+            
           )}
+          {
+            token=== null &&
+            (<Link to="/admin/signup">
+              <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                Admin Signup
+              </button>
+            </Link>
+          )
+          }
+          {
+            token=== null &&
+            (<Link to="/admin/login">
+              <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                Admin Log in
+              </button>
+            </Link>
+          )
+          }
           {token === null && (
             <Link to="/login">
               <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">

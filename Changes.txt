@@ -1,0 +1,12 @@
+server->models->Student:
+    Created Student DB
+server->models->Instructor:
+    Created Instructor DB
+
+server->models->Admin :
+    Created Admin DB
+
+server->controllers->Admin:
+    created new Auth Admin controller
+server->routes->Admin:
+    Created Admin Routes from User Routes

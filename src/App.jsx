@@ -25,12 +25,23 @@ import CourseDetails from "./pages/CourseDetails"
 import Dashboard from "./pages/Dashboard"
 import Error from "./pages/Error"
 import ForgotPassword from "./pages/ForgotPassword"
+
+//ADMIN 
+import AdminOpenRoute from "./components/core/Auth/AdminOpenRoute"
+import AdminPrivateRoute from "./components/core/Auth/AdminPrivateRoute"
+import AdminDashboard from "./pages/AdminDashboard"
+import AdminProfile from "./components/core/AdminDashboard/MyProfile"
+import AdminSettings from "./components/core/AdminDashboard/Settings"
+
 // Pages
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import AdminLogin from "./pages/AdminLogin"
+import AdminSignup from "./pages/AdminSignUp"
 import UpdatePassword from "./pages/UpdatePassword"
 import VerifyEmail from "./pages/VerifyEmail"
+import VerifyAdminEmail from "./pages/VerifyAdminEmail"
 import ViewCourse from "./pages/ViewCourse"
 import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
@@ -67,6 +78,14 @@ function App() {
           }
         />
         <Route
+          path="/admin/login"
+          element={
+            <AdminOpenRoute>
+              <AdminLogin />
+            </AdminOpenRoute>
+          }
+        />
+        <Route
           path="forgot-password"
           element={
             <OpenRoute>
@@ -91,6 +110,14 @@ function App() {
           }
         />
         <Route
+          path="/admin/signup"
+          element={
+            <AdminOpenRoute>
+              <AdminSignup />
+            </AdminOpenRoute>
+          }
+        />
+        <Route
           path="verify-email"
           element={
             <OpenRoute>
@@ -98,6 +125,25 @@ function App() {
             </OpenRoute>
           }
         />
+        <Route
+          path="verify-adminemail"
+          element={
+            <AdminOpenRoute>
+              <VerifyAdminEmail />
+            </AdminOpenRoute>
+          }
+        />
+        {
+          user?.accountType === ACCOUNT_TYPE.ADMIN && (
+            <>
+              <Route element={
+                <AdminPrivateRoute>
+                  <AdminDashboard/>
+                </AdminPrivateRoute>
+              }/>
+            </>
+          )
+        }
         {/* Private Route - for Only Logged in User */}
         <Route
           element={
@@ -106,9 +152,26 @@ function App() {
             </PrivateRoute>
           }
         >
+        {
+          user?.accountType === ACCOUNT_TYPE.ADMIN && (
+              <>
+              <Route path="admindashboard/admin-profile" element={<AdminProfile />} />
+              <Route path="admindashboard/adminsettings" element={<AdminSettings />} />
+              </>
+              
+            
+          )
+        }
+
           {/* Route for all users */}
-          <Route path="dashboard/my-profile" element={<MyProfile />} />
-          <Route path="dashboard/Settings" element={<Settings />} />
+          {
+            (user?.accountType===ACCOUNT_TYPE.STUDENT) || ( user?.accountType===ACCOUNT_TYPE.INSTRUCTOR) && (
+              <>
+              <Route path="dashboard/my-profile" element={<MyProfile />} />
+              <Route path="dashboard/Settings" element={<Settings />} />
+              </>
+            )
+          }
           {/* Route only for Instructors */}
           {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>

@@ -1,5 +1,21 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
+//Admin ENDPOINTS
+export const adminEndpoints = {
+  SENDOTP_API: BASE_URL + "/admin/sendotp",
+  SIGNUP_API: BASE_URL + "/admin/signup",
+  LOGIN_API: BASE_URL + "/admin/login",
+  RESETPASSTOKEN_API: BASE_URL + "/admin/reset-password-token",
+  RESETPASSWORD_API: BASE_URL + "/admin/reset-password",
+}
+
+export const adminSettingEndpoints={
+  UPDATE_DISPLAY_PICTURE_API: BASE_URL + "/adminprofile/updateDisplayPicture",
+  UPDATE_PROFILE_API: BASE_URL + "/adminprofile/updateProfile",
+  CHANGE_PASSWORD_API: BASE_URL + "/admin/changepassword",
+  DELETE_PROFILE_API: BASE_URL + "/adminprofile/deleteProfile",
+}
+
 // AUTH ENDPOINTS
 export const endpoints = {
   SENDOTP_API: BASE_URL + "/auth/sendotp",
@@ -8,6 +24,15 @@ export const endpoints = {
   RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
   RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
 }
+// //INSTRUCTOR ENDPOINTS
+// export const instructorEndpoints = {
+//   SENDOTP_API: BASE_URL + "/instructor/sendotp",
+//   SIGNUP_API: BASE_URL + "/instructor/signup",
+//   LOGIN_API: BASE_URL + "/instructor/login",
+//   RESETPASSTOKEN_API: BASE_URL + "/instructor/reset-password-token",
+//   RESETPASSWORD_API: BASE_URL + "/instructor/reset-password",
+// }
+
 
 // PROFILE ENDPOINTS
 export const profileEndpoints = {
@@ -18,9 +43,11 @@ export const profileEndpoints = {
 
 // STUDENTS ENDPOINTS
 export const studentEndpoints = {
-  COURSE_PAYMENT_API: BASE_URL + "/payment/capturePayment",
-  COURSE_VERIFY_API: BASE_URL + "/payment/verifyPayment",
-  SEND_PAYMENT_SUCCESS_EMAIL_API: BASE_URL + "/payment/sendPaymentSuccessEmail",
+  // SENDOTP_API: BASE_URL + "/student/sendotp",
+  // SIGNUP_API: BASE_URL + "/student/signup",
+  // LOGIN_API: BASE_URL + "/student/login",
+  RESETPASSTOKEN_API: BASE_URL + "/student/reset-password-token",
+  RESETPASSWORD_API: BASE_URL + "/student/reset-password",
 }
 
 // COURSE ENDPOINTS
@@ -62,6 +89,8 @@ export const catalogData = {
 export const contactusEndpoint = {
   CONTACT_US_API: BASE_URL + "/reach/contact",
 }
+
+
 
 // SETTINGS PAGE API
 export const settingsEndpoints = {

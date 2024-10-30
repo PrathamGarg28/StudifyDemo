@@ -5,6 +5,7 @@ export const sidebarLinks = [
     id: 1,
     name: "My Profile",
     path: "/dashboard/my-profile",
+    type: ACCOUNT_TYPE.INSTRUCTOR || ACCOUNT_TYPE.STUDENT,
     icon: "VscAccount",
   },
   {
@@ -41,5 +42,19 @@ export const sidebarLinks = [
     path: "/dashboard/cart",
     type: ACCOUNT_TYPE.STUDENT,
     icon: "VscArchive",
+  },
+  {
+    id: 8,
+    name: "Admin Profile",
+    path: "/admindashboard/admin-profile",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscAccount",
+  },
+  {
+    id: 3,
+    name: "Admin Profile Settings",
+    path: "/admindashboard/adminsettings",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscAccount",
   },
 ]
