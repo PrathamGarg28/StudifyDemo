@@ -24,14 +24,14 @@ export const endpoints = {
   RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
   RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
 }
-// //INSTRUCTOR ENDPOINTS
-// export const instructorEndpoints = {
-//   SENDOTP_API: BASE_URL + "/instructor/sendotp",
-//   SIGNUP_API: BASE_URL + "/instructor/signup",
-//   LOGIN_API: BASE_URL + "/instructor/login",
-//   RESETPASSTOKEN_API: BASE_URL + "/instructor/reset-password-token",
-//   RESETPASSWORD_API: BASE_URL + "/instructor/reset-password",
-// }
+//INSTRUCTOR ENDPOINTS
+export const instructorEndpoints = {
+  SENDOTP_API: BASE_URL + "/instructor/sendotp",
+  SIGNUP_API: BASE_URL + "/instructor/signup",
+  LOGIN_API: BASE_URL + "/instructor/login",
+  RESETPASSTOKEN_API: BASE_URL + "/instructor/reset-password-token",
+  RESETPASSWORD_API: BASE_URL + "/instructor/reset-password",
+}
 
 
 // PROFILE ENDPOINTS
@@ -43,9 +43,9 @@ export const profileEndpoints = {
 
 // STUDENTS ENDPOINTS
 export const studentEndpoints = {
-  // SENDOTP_API: BASE_URL + "/student/sendotp",
-  // SIGNUP_API: BASE_URL + "/student/signup",
-  // LOGIN_API: BASE_URL + "/student/login",
+  SENDOTP_API: BASE_URL + "/student/sendotp",
+  SIGNUP_API: BASE_URL + "/student/signup",
+  LOGIN_API: BASE_URL + "/student/login",
   RESETPASSTOKEN_API: BASE_URL + "/student/reset-password-token",
   RESETPASSWORD_API: BASE_URL + "/student/reset-password",
 }

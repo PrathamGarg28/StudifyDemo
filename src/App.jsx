@@ -36,6 +36,7 @@ import AdminSettings from "./components/core/AdminDashboard/Settings"
 // Pages
 import Home from "./pages/Home"
 import Login from "./pages/Login"
+import InstructorLogin from "./pages/InstructorLogin"
 import Signup from "./pages/Signup"
 import AdminLogin from "./pages/AdminLogin"
 import AdminSignup from "./pages/AdminSignUp"
@@ -74,6 +75,14 @@ function App() {
           element={
             <OpenRoute>
               <Login />
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="/instructor/login"
+          element={
+            <OpenRoute>
+              <InstructorLogin/>
             </OpenRoute>
           }
         />
@@ -165,12 +174,11 @@ function App() {
 
           {/* Route for all users */}
           {
-            (user?.accountType===ACCOUNT_TYPE.STUDENT) || ( user?.accountType===ACCOUNT_TYPE.INSTRUCTOR) && (
               <>
               <Route path="dashboard/my-profile" element={<MyProfile />} />
               <Route path="dashboard/Settings" element={<Settings />} />
               </>
-            )
+            
           }
           {/* Route only for Instructors */}
           {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (

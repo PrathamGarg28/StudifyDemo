@@ -4,7 +4,7 @@ import { setLoading, setToken } from "../../slices/authSlice"
 import { resetCart } from "../../slices/cartSlice"
 import { setUser } from "../../slices/profileSlice"
 import { apiConnector } from "../apiConnector"
-import { endpoints } from "../apis"
+import { instructorEndpoints } from "../apis"
 
 const {
   SENDOTP_API,
@@ -12,7 +12,7 @@ const {
   LOGIN_API,
   RESETPASSTOKEN_API,
   RESETPASSWORD_API,
-} = endpoints
+} = instructorEndpoints
 
 export function sendOtp(email, navigate) {
   return async (dispatch) => {
@@ -49,6 +49,9 @@ export function signUp(
   email,
   password,
   confirmPassword,
+  contactNumber,
+  department,
+  instructorId,
   otp,
   navigate
 ) {
@@ -63,6 +66,9 @@ export function signUp(
         email,
         password,
         confirmPassword,
+        contactNumber,
+        department,
+        instructorId,
         otp,
       })
 
@@ -72,11 +78,11 @@ export function signUp(
         throw new Error(response.data.message)
       }
       toast.success("Signup Successful")
-      navigate("/login")
+      navigate("/instructor/login")
     } catch (error) {
       console.log("SIGNUP API ERROR............", error)
       toast.error("Signup Failed")
-      navigate("/signup")
+      navigate("/instructor/signup")
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
@@ -160,7 +166,7 @@ export function resetPassword(password, confirmPassword, token, navigate) {
       }
 
       toast.success("Password Reset Successfully")
-      navigate("/login")
+      navigate("/instructor/login")
     } catch (error) {
       console.log("RESETPASSWORD ERROR............", error)
       toast.error("Failed To Reset Password")
