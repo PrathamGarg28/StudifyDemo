@@ -438,16 +438,16 @@ function Navbar() {
           )
           }
           {token === null && (
-            <Link to="/login">
+            <Link to="/instructor/login">
               <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                Log in
+                Instructor Log in
               </button>
             </Link>
           )}
           {token === null && (
-            <Link to="/signup">
+            <Link to="/student/login">
               <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                Sign up
+                Student Log in
               </button>
             </Link>
           )}

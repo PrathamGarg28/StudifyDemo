@@ -43,51 +43,55 @@ export function sendOtp(email, navigate) {
 }
 
 export function signUp(
-  accountType,
   firstName,
   lastName,
   email,
   password,
   confirmPassword,
-  contactNumber,
   department,
   instructorId,
-  otp,
-  navigate
+  accountType,
 ) {
   return async (dispatch) => {
+    console.log("pratham 3");
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
+      
+      console.log("pratham 4");
       const response = await apiConnector("POST", SIGNUP_API, {
-        accountType,
         firstName,
         lastName,
         email,
         password,
         confirmPassword,
-        contactNumber,
         department,
         instructorId,
-        otp,
+        accountType,
       })
-
+      
+      console.log("pratham 5");
       console.log("SIGNUP API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
       }
       toast.success("Signup Successful")
-      navigate("/instructor/login")
+      console.log("pratham 6");
+      // navigate("/admindashboard/addinstructor")
     } catch (error) {
+      console.log("pratham 7");
       console.log("SIGNUP API ERROR............", error)
       toast.error("Signup Failed")
-      navigate("/instructor/signup")
+      // navigate("/admindashboard/addinstructor")
     }
+    console.log("pratham 8");
     dispatch(setLoading(false))
     toast.dismiss(toastId)
+    console.log("pratham 9");
   }
 }
+
 
 export function login(email, password, navigate) {
   return async (dispatch) => {

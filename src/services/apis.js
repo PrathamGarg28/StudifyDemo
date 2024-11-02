@@ -24,6 +24,7 @@ export const endpoints = {
   RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
   RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
 }
+
 //INSTRUCTOR ENDPOINTS
 export const instructorEndpoints = {
   SENDOTP_API: BASE_URL + "/instructor/sendotp",

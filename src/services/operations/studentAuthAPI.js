@@ -49,13 +49,10 @@ export function signUp(
   email,
   password,
   confirmPassword,
-  contactNumber,
   studentId, 
   department,
   branch, 
   validTillDate,
-  otp,
-  navigate
 ) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
@@ -68,12 +65,10 @@ export function signUp(
         email,
         password,
         confirmPassword,
-        contactNumber,
         studentId, 
         department,
         branch, 
         validTillDate,
-        otp,
       })
 
       console.log("SIGNUP API RESPONSE............", response)
@@ -82,11 +77,9 @@ export function signUp(
         throw new Error(response.data.message)
       }
       toast.success("Signup Successful")
-      navigate("/student/login")
     } catch (error) {
       console.log("SIGNUP API ERROR............", error)
       toast.error("Signup Failed")
-      navigate("/student/signup")
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)

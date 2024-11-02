@@ -32,17 +32,27 @@ import AdminPrivateRoute from "./components/core/Auth/AdminPrivateRoute"
 import AdminDashboard from "./pages/AdminDashboard"
 import AdminProfile from "./components/core/AdminDashboard/MyProfile"
 import AdminSettings from "./components/core/AdminDashboard/Settings"
+import AdminLogin from "./pages/AdminLogin"
+import AdminSignup from "./pages/AdminSignUp"
+import VerifyAdminEmail from "./pages/VerifyAdminEmail"
+import AddInstructor from "./components/core/Auth/InstructorSignup"
+import AddStudent from "./components/core/Auth/StudentSignup"
+
+
+//INSTRUCTOR
+import InstructorLogin from "./pages/InstructorLogin"
+import InstructorForgotPassword from "./pages/InstructorForgotPassword"
+
+//STUDENT
+import StudentLogin from "./pages/StudentLogin"
+import StudentForgotPassword from "./pages/StudentForgotPassword"
 
 // Pages
 import Home from "./pages/Home"
 import Login from "./pages/Login"
-import InstructorLogin from "./pages/InstructorLogin"
 import Signup from "./pages/Signup"
-import AdminLogin from "./pages/AdminLogin"
-import AdminSignup from "./pages/AdminSignUp"
 import UpdatePassword from "./pages/UpdatePassword"
 import VerifyEmail from "./pages/VerifyEmail"
-import VerifyAdminEmail from "./pages/VerifyAdminEmail"
 import ViewCourse from "./pages/ViewCourse"
 import { getUserDetails } from "./services/operations/profileAPI"
 import { ACCOUNT_TYPE } from "./utils/constants"
@@ -87,6 +97,14 @@ function App() {
           }
         />
         <Route
+          path="/student/login"
+          element={
+            <OpenRoute>
+              <StudentLogin/>
+            </OpenRoute>
+          }
+        />
+        <Route
           path="/admin/login"
           element={
             <AdminOpenRoute>
@@ -102,6 +120,22 @@ function App() {
             </OpenRoute>
           }
         />
+        <Route 
+          path="/instructor/forgot-password"
+          element={
+            <OpenRoute>
+              <InstructorForgotPassword/>
+            </OpenRoute>
+          }
+          />
+          <Route 
+          path="/student/forgot-password"
+          element={
+            <OpenRoute>
+              <StudentForgotPassword/>
+            </OpenRoute>
+          }
+          />
         <Route
           path="update-password/:id"
           element={
@@ -166,6 +200,8 @@ function App() {
               <>
               <Route path="admindashboard/admin-profile" element={<AdminProfile />} />
               <Route path="admindashboard/adminsettings" element={<AdminSettings />} />
+              <Route path="admindashboard/addinstructor" element={<AddInstructor/>}/>
+              <Route path="admindashboard/addstudent" element={<AddStudent/>}/>
               </>
               
             

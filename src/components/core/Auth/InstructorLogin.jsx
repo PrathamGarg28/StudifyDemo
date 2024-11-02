@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 import { login } from "../../../services/operations/instructorAuthAPI"
 
-function LoginForm() {
+function InstructorLogin() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
@@ -71,7 +71,7 @@ function LoginForm() {
             <AiOutlineEye fontSize={24} fill="#AFB2BF" />
           )}
         </span>
-        <Link to="/forgot-password">
+        <Link to="/instructor/forgot-password">
           <p className="mt-1 ml-auto max-w-max text-xs text-blue-100">
             Forgot Password
           </p>
@@ -87,4 +87,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default InstructorLogin
