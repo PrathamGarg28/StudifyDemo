@@ -4,11 +4,14 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Papa from "papaparse";
-import { signUp } from "../../../services/operations/instructorAuthAPI"
+import { signUp } from "../../../services/operations/studentAuthAPI"
 import { setSignupData } from "../../../slices/authSlice"
 import { ACCOUNT_TYPE } from "../../../utils/constants"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-function InstructorSignup() {
+
+function StudentSignup() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -39,11 +42,11 @@ function InstructorSignup() {
           student.email,
           student.password,
           student.confirmPassword,
-          student.department,
-          student.studentId,
-          student.branch,
-          student.validTillDate,
           ACCOUNT_TYPE.STUDENT,
+          student.studentId,
+          student.department,
+          student.branch,
+          student.validTillDate
         )
       );
     })}
@@ -53,17 +56,17 @@ function InstructorSignup() {
     email: "",
     password: "",
     confirmPassword: "",
+    accountType:ACCOUNT_TYPE.STUDENT,
     studentId:"",
     department:"",
     branch:"",
-    validTillDate:"",
-    accountType:ACCOUNT_TYPE.STUDENT
+    validTillDate:""
   })
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const { firstName, lastName, email, password, confirmPassword,studentId,department,branch,validTillDate,accountType} = formData
+  const { firstName, lastName, email, password, confirmPassword,accountType,studentId,department,branch,validTillDate} = formData
 
   // Handle input fields, when some value changes
   const handleOnChange = (e) => {
@@ -72,7 +75,12 @@ function InstructorSignup() {
       [e.target.name]: e.target.value,
     }))
   }
-
+  const handleDateChange = (date) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      validTillDate: date,
+    }));
+  };
   // Handle Form Submission
   const handleOnSubmit = (e) => {
     e.preventDefault()
@@ -83,8 +91,9 @@ function InstructorSignup() {
     }
     const signupData = {
       ...formData,
-      accountType,
-    }
+      validTillDate: formData.validTillDate ? formData.validTillDate.toISOString().split('T')[0] : "", // Convert to "YYYY-MM-DD"
+      accountType: ACCOUNT_TYPE.STUDENT,
+    };
 
     // Setting signup data to state
     // To be used after otp verification
@@ -95,7 +104,7 @@ function InstructorSignup() {
     
     dispatch(
       signUp(formData.firstName,formData.lastName,formData.email,formData.password,formData.confirmPassword, // contactNumber, assuming null if not used
-        formData.department,formData.studentId,formData.branch,formData.validTillDate,formData.accountType)
+        formData.accountType,formData.studentId,formData.department,formData.branch,signupData.validTillDate)
     )
     console.log("Pratham 2");
     // Reset
@@ -105,11 +114,11 @@ function InstructorSignup() {
       email: "",
       password: "",
       confirmPassword: "",
+      accountType:ACCOUNT_TYPE.STUDENT,
       studentId:"",
       department:"",
       branch:"",
-      validTillDate:"",
-      accountType:ACCOUNT_TYPE.STUDENT
+      validTillDate:null,
     })
     
   }
@@ -272,20 +281,19 @@ function InstructorSignup() {
               className="form-style w-full !pr-10"
             />
           </label>
-          <label className="relative">
-            <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
-              Date <sup className="text-pink-200">*</sup>
-            </p>
-            <input
-              required
-              type="text"
-              name="validTillDate"
-              value={validTillDate}
-              onChange={handleOnChange}
-              placeholder="Enter Name of Student's Branch"
-              className="form-style w-full !pr-10"
-            />
-          </label>
+          <label>
+          <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+            Valid Till Date <sup className="text-pink-200">*</sup>
+          </p>
+          <DatePicker
+            selected={formData.validTillDate}
+            value={validTillDate}
+            onChange={handleDateChange}
+            dateFormat="MM-dd-yyyy"
+            placeholderText="MM-DD-YYYY"
+            className="form-style w-full"
+          />
+        </label>
         </div>
         <button
           type="submit"
@@ -308,4 +316,4 @@ function InstructorSignup() {
   )
 }
 
-export default InstructorSignup
+export default StudentSignup

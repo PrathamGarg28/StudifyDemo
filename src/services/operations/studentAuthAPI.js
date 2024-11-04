@@ -43,34 +43,38 @@ export function sendOtp(email, navigate) {
 }
 
 export function signUp(
-  accountType,
   firstName,
   lastName,
   email,
   password,
   confirmPassword,
+  accountType,
   studentId, 
   department,
   branch, 
   validTillDate,
+  
 ) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
+      console.log("PRINTT 1");
+      
       const response = await apiConnector("POST", SIGNUP_API, {
-        accountType,
         firstName,
         lastName,
         email,
         password,
         confirmPassword,
+        accountType,
         studentId, 
         department,
         branch, 
-        validTillDate,
+        validTillDate
       })
-
+      console.log("PRINTT 2");
+      
       console.log("SIGNUP API RESPONSE............", response)
 
       if (!response.data.success) {
@@ -78,6 +82,7 @@ export function signUp(
       }
       toast.success("Signup Successful")
     } catch (error) {
+      console.log("PRINTT 3");
       console.log("SIGNUP API ERROR............", error)
       toast.error("Signup Failed")
     }
