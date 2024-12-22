@@ -2,7 +2,7 @@ const Course = require("../models/Course")
 const Category = require("../models/Category")
 const Section = require("../models/Section")
 const SubSection = require("../models/Subsection")
-const User = require("../models/User")
+const Instructor = require("../models/Instructor");
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../models/CourseProgress")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
@@ -53,7 +53,7 @@ exports.createCourse = async (req, res) => {
       status = "Draft"
     }
     // Check if the user is an instructor
-    const instructorDetails = await User.findById(userId, {
+    const instructorDetails = await Instructor.findById(userId, {
       accountType: "Instructor",
     })
 
@@ -93,7 +93,7 @@ exports.createCourse = async (req, res) => {
     })
 
     // Add the new course to the User Schema of the Instructor
-    await User.findByIdAndUpdate(
+    await Instructor.findByIdAndUpdate(
       {
         _id: instructorDetails._id,
       },
@@ -453,7 +453,7 @@ exports.deleteCourse = async (req, res) => {
     // Unenroll students from the course
     const studentsEnrolled = course.studentsEnroled
     for (const studentId of studentsEnrolled) {
-      await User.findByIdAndUpdate(studentId, {
+      await Instructor.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },
       })
     }

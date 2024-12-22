@@ -1,7 +1,9 @@
 // Importing required modules
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const User = require("../models/User");
+const Instructor = require("../models/Instructor");
+const Admin = require("../models/Admin");
+const Student = require("../models/Student");
 // Configuring dotenv to load environment variables from .env file
 dotenv.config();
 
@@ -44,7 +46,7 @@ exports.auth = async (req, res, next) => {
 };
 exports.isStudent = async (req, res, next) => {
 	try {
-		const userDetails = await User.findOne({ email: req.user.email });
+		const userDetails = await Student.findOne({ email: req.user.email });
 
 		if (userDetails.accountType !== "Student") {
 			return res.status(401).json({
@@ -61,7 +63,7 @@ exports.isStudent = async (req, res, next) => {
 };
 exports.isAdmin = async (req, res, next) => {
 	try {
-		const userDetails = await User.findOne({ email: req.user.email });
+		const userDetails = await Admin.findOne({ email: req.user.email });
 
 		if (userDetails.accountType !== "Admin") {
 			return res.status(401).json({
@@ -78,7 +80,7 @@ exports.isAdmin = async (req, res, next) => {
 };
 exports.isInstructor = async (req, res, next) => {
 	try {
-		const userDetails = await User.findOne({ email: req.user.email });
+		const userDetails = await Instructor.findOne({ email: req.user.email });
 		console.log(userDetails);
 
 		console.log(userDetails.accountType);
