@@ -1,7 +1,7 @@
 const { instance } = require("../config/razorpay")
 const Course = require("../models/Course")
 const crypto = require("crypto")
-const User = require("../models/User")
+const User = require("../models/Student")
 const mailSender = require("../utils/mailSender")
 const mongoose = require("mongoose")
 const {
@@ -101,8 +101,9 @@ exports.verifyPayment = async (req, res) => {
     await enrollStudents(courses, userId, res)
     return res.status(200).json({ success: true, message: "Payment Verified" })
   }
-
-  return res.status(200).json({ success: false, message: "Payment Failed" })
+  // await enrollStudents(courses, userId, res);
+  // return res.status(200).json({ success: true, message: "Payment Verified" });
+  //return res.status(200).json({ success: false, message: "Payment Failed" })
 }
 
 // Send Payment Success Email
