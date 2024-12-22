@@ -4,7 +4,8 @@ import { HiOutlineGlobeAlt } from "react-icons/hi"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-
+import { addToCart, removeFromCart } from "../slices/cartSlice";
+// import { enrollCourses } from "../slices/enrollmentSlice";
 import ConfirmationModal from "../components/Common/ConfirmationModal"
 import Footer from "../components/Common/Footer"
 import RatingStars from "../components/Common/RatingStars"
@@ -12,10 +13,10 @@ import CourseAccordionBar from "../components/core/Course/CourseAccordionBar"
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard"
 import { formatDate } from "../services/formatDate"
 import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
-import { BuyCourse } from "../services/operations/studentFeaturesAPI"
+//import { BuyCourse } from "../services/operations/studentFeaturesAPI"
 import GetAvgRating from "../utils/avgRating"
 import Error from "./Error"
-
+import { enrollCourse } from "../services/operations/enrolllmentAPI"
 function CourseDetails() {
   const { user } = useSelector((state) => state.profile)
   const { token } = useSelector((state) => state.auth)
@@ -23,6 +24,8 @@ function CourseDetails() {
   const { paymentLoading } = useSelector((state) => state.course)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const authState = useSelector((state) => state.auth);
+  const cartState = useSelector((state) => state.cart);
 
   // Getting courseId from url parameter
   const { courseId } = useParams()
@@ -101,20 +104,125 @@ function CourseDetails() {
     createdAt,
   } = response.data?.courseDetails
 
-  const handleBuyCourse = () => {
-    if (token) {
-      BuyCourse(token, [courseId], user, navigate, dispatch)
-      return
+  // const handleEnroll = async () => {
+  //   const token = authState.token;
+  //   const userId = authState.signupData?._id;
+  //   const courses = cartState.cart.map((course) => course._id);
+
+  //   const response = await enrollCourses({ token, userId, courses });
+
+  //   if (response.success) {
+  //     console.log("Enrollment successful!");
+  //     // Optionally reset the cart or perform other actions
+  //   } else {
+  //     console.error("Enrollment failed:", response.message);
+  //   }
+  // };
+
+  // const handleEnroll = async () => {
+  //   const token = authState.token;
+  //   const userId = authState.signupData?._id;
+
+  //   // Add selected courses to the cart if not already present
+  //   selectedCourses.forEach((course) => {
+  //     const courseExists = cartState.cart.find((item) => item._id === course._id);
+  //     if (!courseExists) {
+  //       dispatch(addToCart(course));
+  //     }
+  //   });
+
+  //   // Extract course IDs from the updated cart
+  //   const courses = cartState.cart.map((course) => course._id);
+
+  //   // Proceed to enroll the student in the courses
+  //   const response = await enrollCourses({ token, userId, courses });
+
+  //   if (response.success) {
+  //     console.log("Enrollment successful!");
+  //     dispatch(resetCart()); // Reset the cart after successful enrollment
+  //   } else {
+  //     console.error("Enrollment failed:", response.message);
+  //   }
+  // }
+  // const handleEnroll = async (course) => {
+  //   const token = authState.token;
+  //   const userId = authState.signupData?._id;
+  
+  //   if (!course) {
+  //     console.error("No course selected for enrollment");
+  //     return;
+  //   }
+  
+  //   // Check if the selected course is already in the cart
+  //   if (!cartState.course || cartState.course._id !== course._id) {
+  //     // Add the course to the cart
+  //     dispatch(addToCart(course));
+  //     console.log("Course added to cart. Proceeding to enroll...");
+  //   }
+  
+  //   // Proceed to enroll the student in the course
+  //   const response = await enrollCourse({
+  //     token,
+  //     userId,
+  //     courseId: course._id,
+  //   });
+  
+  //   if (response.success) {
+  //     console.log("Enrollment successful!");
+  //     dispatch(removeFromCart()); // Remove the course from the cart after successful enrollment
+  //   } else {
+  //     console.error("Enrollment failed:", response.message);
+  //   }
+  // };
+  const handleEnroll = async (courseId,courseName,price) => {
+    if (!courseId) {
+      console.error("Invalid course selected");
+      return;
     }
-    setConfirmationModal({
-      text1: "You are not logged in!",
-      text2: "Please login to Purchase Course.",
-      btn1Text: "Login",
-      btn2Text: "Cancel",
-      btn1Handler: () => navigate("/login"),
-      btn2Handler: () => setConfirmationModal(null),
-    })
-  }
+  
+    const token = authState.token;
+    const userId = authState.signupData?._id;
+  
+    // Check if the selected course is already in the cart
+    const courseExists = cartState.cart.some((item) => item._id === courseId);
+  
+    if (!courseExists) {
+      // Add the course to the cart (must be a plain object)
+      dispatch(addToCart({ _id: courseId, name: courseName, price:price }));
+      console.log("Course added to cart. Proceeding to enroll...");
+    }
+  
+    // Proceed to enroll the student in the course
+    const response = await enrollCourse({
+      token,
+      userId,
+      courseId: courseId,
+    });
+  
+    if (response.success) {
+      console.log("Enrollment successful!");
+      dispatch(removeFromCart(courseId)); // Remove course from the cart after successful enrollment
+    } else {
+      console.error("Enrollment failed:", response.message);
+    }
+  };
+  
+  
+
+  // const handleBuyCourse = () => {
+  //   if (token) {
+  //     BuyCourse(token, [courseId], user, navigate, dispatch)
+  //     return
+  //   }
+  //   setConfirmationModal({
+  //     text1: "You are not logged in!",
+  //     text2: "Please login to Purchase Course.",
+  //     btn1Text: "Login",
+  //     btn2Text: "Cancel",
+  //     btn1Handler: () => navigate("/login"),
+  //     btn2Handler: () => setConfirmationModal(null),
+  //   })
+  // }
 
   if (paymentLoading) {
     // console.log("payment loading")
@@ -174,7 +282,7 @@ function CourseDetails() {
               <p className="space-x-3 pb-4 text-3xl font-semibold text-richblack-5">
                 Rs. {price}
               </p>
-              <button className="yellowButton" onClick={handleBuyCourse}>
+              <button className="yellowButton" onClick={()=>handleEnroll(courseId,courseName,price)}>
                 Buy Now
               </button>
               <button className="blackButton">Add to Cart</button>
@@ -185,7 +293,7 @@ function CourseDetails() {
             <CourseDetailsCard
               course={response?.data?.courseDetails}
               setConfirmationModal={setConfirmationModal}
-              handleBuyCourse={handleBuyCourse}
+              handleBuyCourse={handleEnroll}
             />
           </div>
         </div>

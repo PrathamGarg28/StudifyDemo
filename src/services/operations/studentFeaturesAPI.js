@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast"
 
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
-import { resetCart } from "../../slices/cartSlice"
+// import { resetCart } from "../../slices/cartSlice"
 import { setPaymentLoading } from "../../slices/courseSlice"
 import { apiConnector } from "../apiConnector"
 import { studentEndpoints } from "../apis"
@@ -113,7 +113,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
 
     toast.success("Payment Successful. You are Added to the course ")
     navigate("/dashboard/enrolled-courses")
-    dispatch(resetCart())
+    // dispatch(resetCart())
   } catch (error) {
     console.log("PAYMENT VERIFY ERROR............", error)
     toast.error("Could Not Verify Payment.")

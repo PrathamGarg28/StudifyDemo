@@ -8,6 +8,7 @@ const instructorRoutes=require("./routes/Instructor");
 const studentRoutes=require("./routes/Student");
 const profileRoutes = require("./routes/profile");
 const courseRoutes = require("./routes/Course");
+const enrollCourse = require("./routes/EnrollCourseRoute");
 const paymentRoutes = require("./routes/Payments");
 const contactUsRoute = require("./routes/Contact");
 const database = require("./config/database");
@@ -55,6 +56,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/reach", contactUsRoute);
+app.use("/api/v1/enroll",enrollCourse);
 
 // Testing the server
 app.get("/", (req, res) => {
