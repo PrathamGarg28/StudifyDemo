@@ -78,6 +78,10 @@ export const courseEndpoints = {
     BASE_URL + "/course/getFullCourseDetails",
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
   CREATE_RATING_API: BASE_URL + "/course/createRating",
+
+  //admin
+  GET_INSTRUCTOR_STATS_API:BASE_URL + "/course/getinstructorstats",
+  GET_ALL_INSTRUCTOR_API:BASE_URL+"/course/getallinstructors"
 }
 
 // RATINGS AND REVIEWS
@@ -105,4 +109,8 @@ export const settingsEndpoints = {
   UPDATE_PROFILE_API: BASE_URL + "/profile/updateProfile",
   CHANGE_PASSWORD_API: BASE_URL + "/auth/changepassword",
   DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
+  UPDATE_STUDENT_DISPLAY_PICTURE_API: BASE_URL + "/studentprofile/updateDisplayPicture",
+  UPDATE_STUDENT_PROFILE_API: BASE_URL + "/studentprofile/updateProfile",
+  DELETE_STUDENT_PROFILE_API: BASE_URL + "/studentprofile/deleteProfile",
+  CHANGE_STUDENT_PASSWORD_API:BASE_URL+ "/studauth/changepassword",
 }

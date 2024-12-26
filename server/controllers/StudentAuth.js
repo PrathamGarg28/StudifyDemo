@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const User = require("../models/Instructor")
+const User = require("../models/Student")
 const OTP = require("../models/OTP")
 const jwt = require("jsonwebtoken")
 const otpGenerator = require("otp-generator")
@@ -228,19 +228,23 @@ exports.sendotp = async (req, res) => {
 // Controller for Changing Password
 exports.changePassword = async (req, res) => {
   try {
+    console.log("P1");
+    
     // Get user data from req.user
     const userDetails = await User.findById(req.user.id)
-
+    console.log("P2");
     // Get old password, new password, and confirm new password from req.body
     const { oldPassword, newPassword } = req.body
-
+    console.log("P3");
     // Validate old password
     const isPasswordMatch = await bcrypt.compare(
       oldPassword,
       userDetails.password
-    )
+    );
+    console.log("P4");
     if (!isPasswordMatch) {
       // If old password does not match, return a 401 (Unauthorized) error
+      console.log("P5");
       return res
         .status(401)
         .json({ success: false, message: "The password is incorrect" })
@@ -248,14 +252,16 @@ exports.changePassword = async (req, res) => {
 
     // Update password
     const encryptedPassword = await bcrypt.hash(newPassword, 10)
+    console.log("P6");
     const updatedUserDetails = await User.findByIdAndUpdate(
       req.user.id,
       { password: encryptedPassword },
       { new: true }
     )
-
+    console.log("P7");
     // Send notification email
     try {
+      console.log("P8");
       const emailResponse = await mailSender(
         updatedUserDetails.email,
         "Password for your account has been updated",

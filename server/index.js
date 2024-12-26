@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/user");
+const userStudent = require("./routes/userStudent");
 const adminRoutes=require("./routes/Admin");
 const adminProfile=require("./routes/AdminProfile");
 const instructorRoutes=require("./routes/Instructor");
@@ -48,6 +49,7 @@ cloudinaryConnect();
 
 // Setting up routes
 app.use("/api/v1/auth", userRoutes);
+app.use("./api/v1/studauth",userStudent);
 app.use("/api/v1/admin",adminRoutes);
 app.use("/api/v1/adminprofile",adminProfile);
 app.use("/api/v1/instructor",instructorRoutes);

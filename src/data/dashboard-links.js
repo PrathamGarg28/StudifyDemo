@@ -71,4 +71,11 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.ADMIN,
     icon: "VscAccount",
   },
+  // {
+  //   id:12,
+  //   name:"Get Instructor Stats",
+  //   path:"admindashboard/instructorstats",
+  //   type:ACCOUNT_TYPE.ADMIN,
+  //   icon:"VscAccount",
+  // }
 ]

@@ -37,7 +37,7 @@ import AdminSignup from "./pages/AdminSignUp"
 import VerifyAdminEmail from "./pages/VerifyAdminEmail"
 import AddInstructor from "./components/core/Auth/InstructorSignup"
 import AddStudent from "./components/core/Auth/StudentSignup"
-
+import AllInstructorStats from "./components/core/AdminDashboard/InstructorStats"
 
 //INSTRUCTOR
 import InstructorLogin from "./pages/InstructorLogin"
@@ -202,6 +202,7 @@ function App() {
               <Route path="admindashboard/adminsettings" element={<AdminSettings />} />
               <Route path="admindashboard/addinstructor" element={<AddInstructor/>}/>
               <Route path="admindashboard/addstudent" element={<AddStudent/>}/>
+              <Route path="admindashboard/instructorstats" element={<AdminPrivateRoute><AllInstructorStats/></AdminPrivateRoute>}/>
               </>
               
             

@@ -11,5 +11,4 @@ function PrivateRoute({ children }) {
     return <Navigate to="/instructor/login" />
   }
 }
-
 export default PrivateRoute

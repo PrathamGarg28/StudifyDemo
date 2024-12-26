@@ -419,7 +419,7 @@ function Navbar() {
             </Link>
             
           )}
-          {
+          {/* {
             token=== null &&
             (<Link to="/admin/signup">
               <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
@@ -436,7 +436,7 @@ function Navbar() {
               </button>
             </Link>
           )
-          }
+          } */}
           {token === null && (
             <Link to="/instructor/login">
               <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">

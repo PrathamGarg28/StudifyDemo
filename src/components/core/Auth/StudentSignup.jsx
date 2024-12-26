@@ -173,7 +173,7 @@ function StudentSignup() {
             />
           </label>
         </div>
-        <label className="w-full">
+        <label className="w-1/2">
           <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
             Email Address <sup className="text-pink-200">*</sup>
           </p>
@@ -303,8 +303,8 @@ function StudentSignup() {
         </button>
       </form>
       {/* Button for bulk instructor upload */}
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">Bulk Upload Instructors (CSV)</label>
+      <div className="mt-4 text-white ">
+        <label className="text-white block text-sm font-medium text-gray-700">Bulk Student Registration  (CSV)</label>
         <input
           type="file"
           accept=".csv"

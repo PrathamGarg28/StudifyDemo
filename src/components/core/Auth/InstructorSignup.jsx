@@ -158,7 +158,7 @@ function InstructorSignup() {
             />
           </label>
         </div>
-        <label className="w-full">
+        <label className="w-1/2">
           <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
             Email Address <sup className="text-pink-200">*</sup>
           </p>
@@ -255,14 +255,14 @@ function InstructorSignup() {
         </div>
         <button
           type="submit"
-          className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
+          className="mt-6 w-2/3 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
         >
           Create Account
         </button>
       </form>
       {/* Button for bulk instructor upload */}
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">Bulk Upload Instructors (CSV)</label>
+      <div className="mt-4 text-white">
+        <label className="block text-sm font-medium text-gray-700">Bulk Instructor Registration (CSV)</label>
         <input
           type="file"
           accept=".csv"

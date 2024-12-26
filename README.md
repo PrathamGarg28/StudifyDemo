@@ -1,2 +1,1 @@
-# StudyNotion Edtech Project
-# StudifyDemo
+# Studify

@@ -490,3 +490,107 @@ exports.deleteCourse = async (req, res) => {
     })
   }
 }
+
+// exports.getInstructorStats=async(req,res)=>{
+//   try{
+//     const instructorId=req.body;
+//     const instructor=await Instructor.findById(instructorId);
+//     if(!instructor){
+//       return res.status(404).json({
+//         success:false,message:"Instructor not found",
+//       });
+//     }
+//     const courses= await Course.find({instructor:instructorId});
+
+//     //cal totalIncome & totalStudents
+//     let totalIncome,totalStudents=0;
+//     courses.forEach((course)=>{
+//       totalIncome+= course.price*(course.studentsEnroled?.length || 0);
+//       totalStudents +=course.studentsEnroled?.length || 0;
+//     });
+//     return res.status(200).json({
+//       success: true,
+//       data: {
+//         instructorName: instructor.name,
+//         totalCourses: courses.length,
+//         totalIncome,
+//         totalStudents,
+//         departmentName: instructor.department?.name || "N/A",
+//       },
+//     });
+//   }
+//   catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Failed to fetch instructor stats",
+//       error: error.message,
+//     });
+//   }
+// };
+
+exports.getInstructorStats = async (req, res) => {
+  try {
+    const { instructorId } = req.body; // Use instructorId from the request body
+    if (!instructorId) {
+      return res.status(400).json({
+        success: false,
+        message: "Instructor ID is required",
+      });
+    }
+
+    const instructor = await Instructor.findById(instructorId);
+    if (!instructor) {
+      return res.status(404).json({
+        success: false,
+        message: "Instructor not found",
+      });
+    }
+
+    const courses = await Course.find({ instructor: instructorId });
+
+    // Calculate totalIncome & totalStudents
+    let totalIncome = 0,
+      totalStudents = 0;
+    courses.forEach((course) => {
+      totalIncome += course.price * (course.studentsEnroled?.length || 0);
+      totalStudents += course.studentsEnroled?.length || 0;
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        instructorName: instructor.name,
+        totalCourses: courses.length,
+        totalIncome,
+        totalStudents,
+        departmentName: instructor.department?.name || "N/A",
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch instructor stats",
+      error: error.message,
+    });
+  }
+};
+
+
+exports.getAllInstructors = async (req, res) => {
+  try {
+    const instructors = await Instructor.find({}, "_id firstName lastName");
+    res.status(200).json({
+      success: true,
+      instructors,
+    });
+  } catch (error) {
+    console.error("Error fetching instructors:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch instructors.",
+      error: error.message,
+    });
+  }
+};

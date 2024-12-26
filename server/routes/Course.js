@@ -13,6 +13,8 @@ const {
   editCourse,
   getInstructorCourses,
   deleteCourse,
+  getInstructorStats,
+  getAllInstructors
 } = require("../controllers/Course")
 
 // Tags Controllers Import
@@ -54,6 +56,10 @@ const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
 // ********************************************************************************************************
 //                                      Course routes
 // ********************************************************************************************************
+
+// fetch instructor stats for admin page
+router.get("/getinstructorstats",getInstructorStats)
+router.get("/getallinstructors",getAllInstructors)
 
 // Courses can Only be Created by Instructors
 router.post("/createCourse", auth, isInstructor, createCourse)
